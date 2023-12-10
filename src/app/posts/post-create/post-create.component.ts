@@ -20,10 +20,12 @@ export class PostCreateComponent {
     if(form.invalid) return
 
     const post: Post = {
+      id: null,
       content: form.value.content,
       description: form.value.description,
       title: form.value.title,
     };
+
     // this.postCreated.emit(post);
     this.postsService.addPost(post)
     form.resetForm();

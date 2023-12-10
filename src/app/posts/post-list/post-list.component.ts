@@ -12,11 +12,12 @@ import { PostsService } from '../posts.service';
 
 export class PostListComponent implements OnInit, OnDestroy{
   private postsSub: Subscription;
-  posts: Post[] = [
-    { title: 'first title', content: 'dsfdasfdasfadsf', description: "This is a description" },
-    { title: 'second title', content: 'vcxzvczxvcxv', description: "This is a description 2" },
-    { title: 'third ttile', content: 'etewrtrwetert', description: "This is a description 3" },
-  ]
+  posts: Post[] = []
+  // posts: Post[] = [
+  //   { title: 'first title', content: 'dsfdasfdasfadsf', description: "This is a description" },
+  //   { title: 'second title', content: 'vcxzvczxvcxv', description: "This is a description 2" },
+  //   { title: 'third ttile', content: 'etewrtrwetert', description: "This is a description 3" },
+  // ]
 
   constructor(public postsService: PostsService){
 
@@ -31,7 +32,7 @@ export class PostListComponent implements OnInit, OnDestroy{
 
 
   ngOnInit() {
-    this.posts = this.postsService.getPosts();
+    this.postsService.getPosts();
 
     this.postsService.getPostsUpdateListener()
       .subscribe((posts: Post[]) => {
@@ -41,5 +42,9 @@ export class PostListComponent implements OnInit, OnDestroy{
 
   ngOnDestroy(): void {
     this.postsSub.unsubscribe()
+  }
+
+  onDelete(postId: string) {
+    this.postsService.deletePost(postId)
   }
 }
